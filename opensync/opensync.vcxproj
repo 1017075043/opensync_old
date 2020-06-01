@@ -75,7 +75,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\file\public_database\boost;D:\file\public_database\c++ 4.8.2;D:\file\public_database\include;D:\file\public_database\x86_64-redhat-linux_4.8.2;D:\file\public_database\x86_64-redhat-linux;D:\file\public_database\log4cplus;D:\file\public_database\log4cpp</IncludePath>
+    <IncludePath>D:\file\public_database\boost;D:\file\public_database\c++ 4.8.2;D:\file\public_database\include;D:\file\public_database\x86_64-redhat-linux_4.8.2;D:\file\public_database\x86_64-redhat-linux;D:\file\public_database\log4cplus;D:\file\public_database\log4cpp;D:\file\public_database\openssl</IncludePath>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="exception.cpp" />
@@ -102,7 +102,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <SharedLibrarySearchPath>%(Link.SharedLibrarySearchPath);/usr/local/lib/</SharedLibrarySearchPath>
-      <LibraryDependencies>boost_date_time;boost_filesystem;log4cplus;log4cpp</LibraryDependencies>
+      <LibraryDependencies>boost_date_time;boost_filesystem;log4cplus;log4cpp;crypto</LibraryDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

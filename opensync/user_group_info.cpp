@@ -47,7 +47,7 @@ namespace opensync
 			FILE* stream = fopen(passwd_file.c_str(), "r");
 			if (stream == nullptr)
 			{
-				throw exception() << err_str("No such file or directory: " + passwd_file);
+				throw exception() << err_str(passwd_file + " " + strerror(errno));
 			}
 			struct passwd* user_info;
 			while ((user_info = fgetpwent(stream)) != 0)
@@ -71,7 +71,7 @@ namespace opensync
 			FILE* stream = fopen(group_file.c_str(), "r");
 			if (stream == nullptr)
 			{
-				throw exception() << err_str("No such file or directory: " + group_file);
+				throw exception() << err_str(group_file + " " + strerror(errno));
 			}
 			struct group* group_info;
 			while ((group_info = fgetgrent(stream)) != 0)

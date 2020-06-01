@@ -36,6 +36,7 @@ namespace opensync
 			string user_name;
 			int group;
 			string group_name;
+			string file_hash;
 			boost::tribool status;
 		} 
 	file_attribute;

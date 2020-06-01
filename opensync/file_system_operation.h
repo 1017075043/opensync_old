@@ -5,6 +5,12 @@
 #include <boost/date_time.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
+#include <openssl/md5.h>
+#include <openssl/sha.h>
+#include <openssl/des.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+
 
 #include "file_info_databases.h"
 #include "user_group_info.h"
@@ -26,6 +32,7 @@ namespace opensync
 	private:
 		int get_file_uid(const string& file_path); //获取文件的uid
 		int get_file_gid(const string& file_path); //获取文件的gid
+		string get_file_md5_p(const string& file_path); //获取文件md5值
 	public:
 		file_system_operation();
 		~file_system_operation();

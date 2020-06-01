@@ -40,6 +40,8 @@ namespace opensync
 			//out->logs << OUTDEBUG << file_path << ", attribute.group=" << file_info->data[file_path].group;
 			file_info->data[file_path].group_name = user_group->get_group_name(file_info->data[file_path].group);
 			//out->logs << OUTDEBUG << file_path << ", attribute.group_name=" << file_info->data[file_path].group_name;
+			file_info->data[file_path].file_hash = get_file_md5_p(file_path);
+			//out->logs << OUTDEBUG << file_path << ", attribute.file_hash=" << file_info->data[file_path].file_hash;
 			file_info->data[file_path].status = true;
 			//out->logs << OUTDEBUG << file_path << ", attribute.status=" << file_info->data[file_path].status;
 		}
@@ -57,7 +59,7 @@ namespace opensync
 		{
 			if (stat(file_path.c_str(), &st) == -1)
 			{
-				throw exception() << err_str(file_path + strerror(errno));
+				throw exception() << err_str(file_path + " " + strerror(errno));
 			}
 			return (int)st.st_uid;
 		}
@@ -74,7 +76,7 @@ namespace opensync
 		{
 			if (stat(file_path.c_str(), &st) == -1)
 			{
-				throw exception() << err_str(file_path + strerror(errno));
+				throw exception() << err_str(file_path + " " + strerror(errno));
 			}
 			return (int)st.st_gid;
 		}
@@ -105,7 +107,46 @@ namespace opensync
 			out->logs << OUTDEBUG << file_path << ", attribute.user_name=" << file_info->data[file_path].user_name;
 			out->logs << OUTDEBUG << file_path << ", attribute.group=" << file_info->data[file_path].group;
 			out->logs << OUTDEBUG << file_path << ", attribute.group_name=" << file_info->data[file_path].group_name;
+			out->logs << OUTDEBUG << file_path << ", attribute.file_hash=" << file_info->data[file_path].file_hash;
 			out->logs << OUTDEBUG << file_path << ", attribute.status=" << file_info->data[file_path].status;
 		}
+	}
+	string file_system_operation::get_file_md5_p(const string& file_path) //获取文件md5值
+	{
+		string md5_value;
+		try
+		{
+			std::ifstream file(file_path.c_str(), std::ifstream::binary);
+			if (!file)
+			{
+				throw exception() << err_str(file_path + " " + strerror(errno));
+			}
+			MD5_CTX md5Context;
+			MD5_Init(&md5Context);
+
+			char buf[1024 * 16];
+			while (file.good())
+			{
+				file.read(buf, sizeof(buf));
+				MD5_Update(&md5Context, buf, file.gcount());
+			}
+
+			unsigned char result[MD5_DIGEST_LENGTH];
+			MD5_Final(result, &md5Context);
+
+			char hex[35];
+			memset(hex, 0, sizeof(hex));
+			for (int i = 0; i < MD5_DIGEST_LENGTH; ++i)
+			{
+				sprintf(hex + i * 2, "%02x", result[i]);
+			}
+			hex[32] = '\0';
+			md5_value = string(hex);
+		}
+		catch (exception& e)
+		{
+			out->logs << OUTERROR << *boost::get_error_info<err_str>(e);
+		}
+		return md5_value;
 	}
 }
