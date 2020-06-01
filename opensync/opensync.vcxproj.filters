@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="system">
+      <UniqueIdentifier>{07d0a519-0020-44d1-8305-0dbb46665340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{9f8d7c03-04bf-4940-87c2-6cc4bbdcdc51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\log4cpp_instance">
+      <UniqueIdentifier>{37f363ba-80d5-4e11-ad14-f0bf38957e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\exception">
+      <UniqueIdentifier>{7cf99443-39c5-44a9-be5c-f0bef6cdf512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\user_group_info">
+      <UniqueIdentifier>{5209da9d-009e-4d4f-b5cf-ca9d45e2a930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\file_info_databases">
+      <UniqueIdentifier>{5da47a0e-44b2-4b73-a035-032f32c4734e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\file_system_operation">
+      <UniqueIdentifier>{fa3933c1-abc9-4f82-8d34-39ea4dc5e619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\instance_garbo">
+      <UniqueIdentifier>{19153032-a7df-4fd4-8c4c-cd280ec73f28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="log4cpp_instance.cpp">
+      <Filter>public\log4cpp_instance</Filter>
+    </ClCompile>
+    <ClCompile Include="user_group_info.cpp">
+      <Filter>system\user_group_info</Filter>
+    </ClCompile>
+    <ClCompile Include="exception.cpp">
+      <Filter>public\exception</Filter>
+    </ClCompile>
+    <ClCompile Include="file_info_databases.cpp">
+      <Filter>system\file_info_databases</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_operation.cpp">
+      <Filter>system\file_system_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="instance_garbo.cpp">
+      <Filter>public\instance_garbo</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="log4cpp_instance.h">
+      <Filter>public\log4cpp_instance</Filter>
+    </ClInclude>
+    <ClInclude Include="user_group_info.h">
+      <Filter>system\user_group_info</Filter>
+    </ClInclude>
+    <ClInclude Include="exception.h">
+      <Filter>public\exception</Filter>
+    </ClInclude>
+    <ClInclude Include="opensync_public_define.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="opensync_public_include_file.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="file_info_databases.h">
+      <Filter>system\file_info_databases</Filter>
+    </ClInclude>
+    <ClInclude Include="file_system_operation.h">
+      <Filter>system\file_system_operation</Filter>
+    </ClInclude>
+    <ClInclude Include="instance_garbo.h">
+      <Filter>public\instance_garbo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="opensync_log4cpp.conf" />
+  </ItemGroup>
+</Project>
