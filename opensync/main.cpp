@@ -17,9 +17,9 @@ int main(int argc, char* argv[])
 	out->logs << OUTINFO << "BOOST_LIB_VERSION: " << BOOST_LIB_VERSION;
 
 	boost::shared_ptr<opensync::file_system_operation> file_op(new opensync::file_system_operation);
-	//file_op->get_file_info("/home/wnh/projects/opensync/bin/x64/Debug/opensync.out");
 	file_op->show_file_info("/home/wnh/projects/opensync/bin/x64/Debug/opensync.out");
-
+	file_op->get_file_and_son_info("/home/wnh/projects/opensync/bin");
+	file_op->show_file_info_databases();
 	opensync::instance_garbo garbo = opensync::instance_garbo();
 	cout << "opensync end" << endl;
 }

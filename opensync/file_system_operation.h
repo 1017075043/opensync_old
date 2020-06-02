@@ -33,11 +33,14 @@ namespace opensync
 		int get_file_uid(const string& file_path); //获取文件的uid
 		int get_file_gid(const string& file_path); //获取文件的gid
 		string get_file_md5_p(const string& file_path); //获取文件md5值
+		void show_file_info_p(const string& file_path); //显示文件的属性（私用）
 	public:
 		file_system_operation();
 		~file_system_operation();
 		opensync::file_attribute get_file_info(const string& file_path); //获取一个文件属性信息
 		void show_file_info(const string& file_path); //显示文件的属性
+		void show_file_info_databases(); //显示目前文件信息库中存储文件的信息
+		map<string, opensync::file_attribute> get_file_and_son_info(const string& file_path); //获取一个目录及其下级文件的属性信息
 	};
 }
 
