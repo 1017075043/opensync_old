@@ -25,6 +25,9 @@
     <Filter Include="public\instance_garbo">
       <UniqueIdentifier>{19153032-a7df-4fd4-8c4c-cd280ec73f28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\string_operation">
+      <UniqueIdentifier>{61af3a32-b5eb-46f0-9fc9-b2108f5441ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -45,6 +48,36 @@
     </ClCompile>
     <ClCompile Include="instance_garbo.cpp">
       <Filter>public\instance_garbo</Filter>
+    </ClCompile>
+    <ClCompile Include="string_operation.cpp">
+      <Filter>public\string_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_operation_update.cpp">
+      <Filter>system\file_system_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_operation_get.cpp">
+      <Filter>system\file_system_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_operation_set.cpp">
+      <Filter>system\file_system_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_operation_show.cpp">
+      <Filter>system\file_system_operation</Filter>
+    </ClCompile>
+    <ClCompile Include="file_info_databases_is_exist.cpp">
+      <Filter>system\file_info_databases</Filter>
+    </ClCompile>
+    <ClCompile Include="file_info_databases_transfrom.cpp">
+      <Filter>system\file_info_databases</Filter>
+    </ClCompile>
+    <ClCompile Include="user_group_info_get.cpp">
+      <Filter>system\user_group_info</Filter>
+    </ClCompile>
+    <ClCompile Include="user_group_info_is_exist.cpp">
+      <Filter>system\user_group_info</Filter>
+    </ClCompile>
+    <ClCompile Include="user_group_info_show.cpp">
+      <Filter>system\user_group_info</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="instance_garbo.h">
       <Filter>public\instance_garbo</Filter>
+    </ClInclude>
+    <ClInclude Include="string_operation.h">
+      <Filter>public\string_operation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

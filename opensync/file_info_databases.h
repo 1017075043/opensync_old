@@ -37,7 +37,7 @@ namespace opensync
 			int group;
 			string group_name;
 			string file_hash;
-			boost::tribool status;
+			bool status;
 		} 
 	file_attribute;
 
@@ -50,20 +50,29 @@ namespace opensync
 		bimap file_type_dictionary; //存放文件类型字典
 		bimap file_permissions_dictionary; //存放文件权限字典
 	private:
+		//file_info_databases
 		file_info_databases();
 		~file_info_databases();
 		void init_file_type_dictionary(); //初始化文件类型字典
 		void init_file_permissions_dictionary(); //初始化文件权限字典
 	public:
+		//file_info_databases
 		static file_info_databases* get_instance();
 		static file_info_databases* init_instance();
 		static void destory();
 	public:
 		map<string, file_attribute> data; //存放文件信息
 	public:
-		string transfrom_file_type(int type); //转换文件类型
-		int transfrom_file_type(string type); //转换文件类型
-		string transfrom_file_permissions(int permissions); //转换文件权限
-		int transfrom_file_permissions(string permissions); //转换文件权限
+		//file_info_databases_transfrom
+		string transfrom_file_type(const int& type); //转换文件类型
+		int transfrom_file_type(const string& type); //转换文件类型
+		string transfrom_file_permissions(const int& permissions); //转换文件权限
+		int transfrom_file_permissions(const string& permissions); //转换文件权限
+
+		//file_info_databases_is_exist
+		bool is_exist_file_type(const int& type); //判断转换文件类型是否存在
+		bool is_exist_file_type(const string& type); //判断转换文件类型是否存在
+		bool is_exist_file_permissions(const int& permissions); //判断文件权限是否存在
+		bool is_exist_file_permissions(const string& permissions); //判断文件权限是否存在
 	};
 }

@@ -17,9 +17,21 @@ int main(int argc, char* argv[])
 	out->logs << OUTINFO << "BOOST_LIB_VERSION: " << BOOST_LIB_VERSION;
 
 	boost::shared_ptr<opensync::file_system_operation> file_op(new opensync::file_system_operation);
-	file_op->show_file_info("/home/wnh/projects/opensync/bin/x64/Debug/opensync.out");
-	file_op->get_file_and_son_info("/home/wnh/projects/opensync/bin");
-	file_op->show_file_info_databases();
+	file_op->show_file_info("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_path("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_size("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_type("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_type_name("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_permissions("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_permissions_name("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_last_write_time("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_last_write_time_s("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_user("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_user_name("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_group("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_group_name("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_hash("/tmp/a/200.txt");
+	out->logs << OUTINFO << file_op->get_file_status("/tmp/a/200.txt");
 	opensync::instance_garbo garbo = opensync::instance_garbo();
 	cout << "opensync end" << endl;
 }
