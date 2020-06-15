@@ -81,7 +81,7 @@ namespace opensync
 		}
 		return md5_value;
 	}
-	const vector<const opensync::file_attribute*> file_system_operation::get_file_and_son_info(const string& file_path) //获取一个文件及其下级文件的属性信息
+	const vector<const opensync::file_attribute*> file_system_operation::get_file_and_dir_traverse_all_list(const string& file_path)  //遍历获取一个目录或目录及其下级所有类型文件的属性信息列表
 	{
 		typedef boost::filesystem::recursive_directory_iterator rd_iterator;
 		vector<const opensync::file_attribute*> file_and_son_info;
@@ -105,6 +105,79 @@ namespace opensync
 					get_file_info((const string&)pos->path());
 					file_and_son_info.push_back(&file_info->data[(const string&)pos->path()]);
 				}
+			}
+		}
+		catch (exception& e)
+		{
+			out->logs << OUTERROR << *boost::get_error_info<err_str>(e);
+		}
+		return file_and_son_info;
+	}
+	const vector<const opensync::file_attribute*> file_system_operation::get_file_and_dir_traverse_dir_list(const string& file_path)  //遍历获取一个目录或目录及其下级目录类型文件的属性信息列表
+	{
+		typedef boost::filesystem::recursive_directory_iterator rd_iterator;
+		vector<const opensync::file_attribute*> file_and_son_info;
+		try
+		{
+			boost::filesystem::path p(file_path);
+			if (!exists(p))
+			{
+				throw exception() << err_str(file_path + " " + strerror(errno));
+			}
+			if (file_info->data.find(file_path) == file_info->data.end())
+			{
+				init_file_info(file_path);
+			}
+			if (boost::filesystem::is_directory(p))
+			{
+				file_and_son_info.push_back(&file_info->data[file_path]);
+				rd_iterator end;
+				for (rd_iterator pos(p); pos != end; ++pos)
+				{
+					get_file_info((const string&)pos->path());
+					if (file_info->data[(const string&)pos->path()].type == 3)
+					{
+						file_and_son_info.push_back(&file_info->data[(const string&)pos->path()]);
+					}
+				}
+			}
+		}
+		catch (exception& e)
+		{
+			out->logs << OUTERROR << *boost::get_error_info<err_str>(e);
+		}
+		return file_and_son_info;
+	}
+	const vector<const opensync::file_attribute*> file_system_operation::get_file_and_dir_traverse_file_list(const string& file_path)  //遍历获取一个目录或目录及其下级非目录类型文件的属性信息列表
+	{
+		typedef boost::filesystem::recursive_directory_iterator rd_iterator;
+		vector<const opensync::file_attribute*> file_and_son_info;
+		try
+		{
+			boost::filesystem::path p(file_path);
+			if (!exists(p))
+			{
+				throw exception() << err_str(file_path + " " + strerror(errno));
+			}
+			if (file_info->data.find(file_path) == file_info->data.end())
+			{
+				init_file_info(file_path);
+			}
+			if (boost::filesystem::is_directory(p))
+			{
+				rd_iterator end;
+				for (rd_iterator pos(p); pos != end; ++pos)
+				{
+					get_file_info((const string&)pos->path());
+					if (file_info->data[(const string&)pos->path()].type != 3)
+					{ 
+						file_and_son_info.push_back(&file_info->data[(const string&)pos->path()]);
+					}
+				}
+			}
+			else
+			{
+				file_and_son_info.push_back(&file_info->data[file_path]);
 			}
 		}
 		catch (exception& e)

@@ -3,6 +3,7 @@
 #include "opensync_public_include_file.h"
 #include "file_info_databases.h"
 #include "user_group_info.h"
+#include "file_system_inotify.h"
 
 /*
 	µ¥Àý»ØÊÕ

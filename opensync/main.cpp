@@ -6,6 +6,7 @@
 
 #include "instance_garbo.h"
 #include "file_system_operation.h"
+#include "file_system_inotify.h"
 
 using namespace std;
 
@@ -16,22 +17,11 @@ int main(int argc, char* argv[])
 	out->logs << OUTINFO << "BOOST_VERSION: " << BOOST_VERSION;
 	out->logs << OUTINFO << "BOOST_LIB_VERSION: " << BOOST_LIB_VERSION;
 
-	boost::shared_ptr<opensync::file_system_operation> file_op(new opensync::file_system_operation);
-	file_op->show_file_info("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_path("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_size("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_type("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_type_name("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_permissions("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_permissions_name("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_last_write_time("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_last_write_time_s("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_user("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_user_name("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_group("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_group_name("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_hash("/tmp/a/200.txt");
-	out->logs << OUTINFO << file_op->get_file_status("/tmp/a/200.txt");
+	opensync::file_system_inotify* file_inotify = opensync::file_system_inotify::init_instance();
+	file_inotify->add_watch(argv[1]);
+	file_inotify->add_ignore_watch(argv[2]);
+	file_inotify->open_inotify();
+
 	opensync::instance_garbo garbo = opensync::instance_garbo();
 	cout << "opensync end" << endl;
 }

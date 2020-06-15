@@ -28,6 +28,9 @@
     <Filter Include="public\string_operation">
       <UniqueIdentifier>{61af3a32-b5eb-46f0-9fc9-b2108f5441ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="system\file_system_monitor">
+      <UniqueIdentifier>{94578c9c-aec2-49b5-9406-321ffa520069}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -79,6 +82,12 @@
     <ClCompile Include="user_group_info_show.cpp">
       <Filter>system\user_group_info</Filter>
     </ClCompile>
+    <ClCompile Include="file_system_inotify.cpp">
+      <Filter>system\file_system_monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_inotify_list_operation.cpp">
+      <Filter>system\file_system_monitor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="log4cpp_instance.h">
@@ -107,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="string_operation.h">
       <Filter>public\string_operation</Filter>
+    </ClInclude>
+    <ClInclude Include="file_system_inotify.h">
+      <Filter>system\file_system_monitor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

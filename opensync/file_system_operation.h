@@ -5,6 +5,7 @@
 #include <boost/date_time.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <openssl/md5.h>
 #include <openssl/sha.h>
 #include <openssl/des.h>
@@ -48,7 +49,9 @@ namespace opensync
 
 		//file_system_operation_get
 		const opensync::file_attribute* get_file_info(const string& file_path); //获取一个文件属性信息
-		const vector<const opensync::file_attribute*> get_file_and_son_info(const string& file_path); //获取一个目录及其下级文件的属性信息
+		const vector<const opensync::file_attribute*> get_file_and_dir_traverse_all_list(const string& file_path); //遍历获取一个目录或目录及其下级所有类型文件的属性信息列表
+		const vector<const opensync::file_attribute*> get_file_and_dir_traverse_dir_list(const string& file_path); //遍历获取一个目录或目录及其下级目录类型文件的属性信息列表
+		const vector<const opensync::file_attribute*> get_file_and_dir_traverse_file_list(const string& file_path);//遍历获取一个目录或目录及其下级非目录类型文件的属性信息列表
 		const path get_file_path(const string& file_path); //获取文件file_path
 		const long get_file_size(const string& file_path); //获取文件file_size
 		const file_type get_file_type(const string& file_path); //获取文件file_type

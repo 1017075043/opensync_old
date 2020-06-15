@@ -10,5 +10,6 @@ namespace opensync
 		opensync::log4cpp_instance::destory();
 		opensync::user_group_info::destory();
 		opensync::file_info_databases::destory();
+		opensync::file_system_inotify::destory();
 	}
 }

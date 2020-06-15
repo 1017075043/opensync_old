@@ -20,9 +20,9 @@ namespace opensync
 			if (!boost::filesystem::is_directory(p))
 			{
 				file_info->data[file_path].file_size = (long)boost::filesystem::file_size(p);
-				//out->logs << OUTDEBUG << file_path << ", attribute.file_size=" << file_info->data[file_path].file_size;
+				out->logs << OUTDEBUG << file_path << ", attribute.file_size=" << file_info->data[file_path].file_size;
 				file_info->data[file_path].file_hash = get_file_md5_p(file_path);
-				//out->logs << OUTDEBUG << file_path << ", attribute.file_hash=" << file_info->data[file_path].file_hash;
+				out->logs << OUTDEBUG << file_path << ", attribute.file_hash=" << file_info->data[file_path].file_hash;
 			}
 			file_info->data[file_path].type = s.type();
 			//out->logs << OUTDEBUG << file_path << ", attribute.type=" << file_info->data[file_path].type;
