@@ -83,6 +83,7 @@
     <ClCompile Include="file_info_databases_is_exist.cpp" />
     <ClCompile Include="file_info_databases_transfrom.cpp" />
     <ClCompile Include="file_system_inotify.cpp" />
+    <ClCompile Include="file_system_inotify_fifo.cpp" />
     <ClCompile Include="file_system_inotify_list_operation.cpp" />
     <ClCompile Include="file_system_operation.cpp" />
     <ClCompile Include="file_system_operation_get.cpp" />
@@ -116,8 +117,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <SharedLibrarySearchPath>%(Link.SharedLibrarySearchPath);/usr/local/lib/</SharedLibrarySearchPath>
-      <LibraryDependencies>boost_date_time;boost_filesystem;log4cpp;crypto</LibraryDependencies>
+      <LibraryDependencies>boost_date_time;boost_filesystem;boost_thread;log4cpp;crypto;pthread</LibraryDependencies>
+      <Version>true</Version>
     </Link>
+    <ClCompile>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <Verbose>false</Verbose>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

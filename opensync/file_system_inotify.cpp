@@ -4,6 +4,7 @@ namespace opensync
 	file_system_inotify* file_system_inotify::instance = nullptr;
 	file_system_inotify::file_system_inotify()
 	{
+		run_flag = true;
 		create_inotify(inotify_fd);
 	}
 	file_system_inotify::~file_system_inotify()
@@ -168,6 +169,11 @@ namespace opensync
 
 	bool file_system_inotify::open_inotify() //开始进行监控
 	{
+		if (watch_list.empty())
+		{
+			out->logs << OUTWARN << "watch list is empty";
+			return true;
+		}
 		BOOST_FOREACH(string file_path, watch_list) //添加要监控的文件
 		{
 			add_watch_dir(file_path);
@@ -191,31 +197,69 @@ namespace opensync
 		}
 
 		struct epoll_event events_in[16];
-		int len, nread;
-		char buf[1024];
 		struct inotify_event* event;
-		while (true)
+		while (run_flag)
 		{
-			int event_count = epoll_wait(epollfd, events_in, sizeof(events_in) - 1, 100); 
+			int event_count = epoll_wait(epollfd, events_in, sizeof(events_in) - 1, 10); 
+			//out->logs << OUTDEBUG << "event_count:" << event_count;
 			//等待事件， epoll_wait 会将事件填充至 events_in 内
 			//返回 获得的事件数量，若超时且没有任何事件返回 0 ，出错返回 -1 。 timeout设置为-1表示无限等待。毫秒级，1秒等于1000毫秒
 			for (int i = 0; i < event_count; i++)      //遍历所有事件
 			{
-				while ((len = read(inotify_fd, buf, sizeof(buf) - 1)) > 0) //从缓冲池中取出事件
+				out->logs << OUTDEBUG << "epoll listen event count: " << event_count;
+				char buf[1024];
+				int len = read(inotify_fd, buf, sizeof(buf) - 1); //从缓冲池中取出事件
+				int nread = 0;
+				while (len > 0)
 				{
-					nread = 0;
-					while (len > 0)
+					event = (struct inotify_event*) & buf[nread];
+					if (event->len > 0)
 					{
-						event = (struct inotify_event*) & buf[nread];
-						if (event->len > 0)
-						{
-							handle_event(event->wd, event->name, event->mask);
-						}
-						nread = nread + sizeof(struct inotify_event) + event->len;
-						len = len - sizeof(struct inotify_event) - event->len;
+						handle_event(event->wd, event->name, event->mask);
 					}
+					nread = nread + sizeof(struct inotify_event) + event->len;
+					len = len - sizeof(struct inotify_event) - event->len;
 				}
 			}
+		}
+		return true;
+	}
+	bool file_system_inotify::open_inotify_stake() //开始进行监控(桩，只监听，不读取)
+	{
+		if (watch_list.empty())
+		{
+			out->logs << OUTWARN << "watch list is empty";
+			return true;
+		}
+		struct epoll_event epev;  //记录套接字相关信息
+		epev.events = EPOLLIN;    //监视有数据可读事件
+		epev.data.fd = inotify_fd;//文件描述符数据，其实这里可以放任何数据。
+		int epollfd = epoll_create(1024); //创建 epoll 文件描述符，出错返回-1
+		try
+		{
+			//加入监听列表，当 listenfd 上有对应事件产生时， epoll_wait 会将 epoll_event 填充到 events_in 数组里, 出错返回 -1
+			if (epoll_ctl(epollfd, EPOLL_CTL_ADD, inotify_fd, &epev) == -1)
+			{
+				throw exception() << err_str("inotify_fd add epoll listen fail");
+			}
+		}
+		catch (exception& e)
+		{
+			out->logs << OUTERROR << *boost::get_error_info<err_str>(e);
+			return false;
+		}
+		
+		struct epoll_event events_in[16];
+		while (run_flag)
+		{
+			int event_count = epoll_wait(epollfd, events_in, sizeof(events_in) - 1, 10);
+			if (event_count)
+			{
+				out->logs << OUTDEBUG << "epoll listen event count: " << event_count;
+			}
+			//out->logs << OUTDEBUG << "event_count:" << event_count;
+			//等待事件， epoll_wait 会将事件填充至 events_in 内
+			//返回 获得的事件数量，若超时且没有任何事件返回 0 ，出错返回 -1 。 timeout设置为-1表示无限等待。毫秒级，1秒等于1000毫秒
 		}
 		return true;
 	}

@@ -88,6 +88,9 @@
     <ClCompile Include="file_system_inotify_list_operation.cpp">
       <Filter>system\file_system_monitor</Filter>
     </ClCompile>
+    <ClCompile Include="file_system_inotify_fifo.cpp">
+      <Filter>system\file_system_monitor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="log4cpp_instance.h">
