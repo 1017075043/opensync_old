@@ -42,6 +42,8 @@ namespace opensync
 		bimap inotify_list; //监控列表
 		list<string> watch_list; //监听文件列表
 		list<string> ignore_watch_list; //忽略监听文件列表
+		map<string, uint32_t> event_list; //事件列表
+		map<string, uint32_t> action_list; //动作列表
 
 	private:
 		//file_system_inotify
@@ -57,6 +59,7 @@ namespace opensync
 		void handle_event(const int& wd, const string& name, const uint32_t& mask); //处理一个事件
 		inline const string transform_event_mask(const uint32_t& mask); //事件转换
 		inline const string transform_event_mask_chinese(const uint32_t& mask); //事件转换(中文)
+		inline void add_event_into_event_list(const string& file_path, const uint32_t& mask); //向事件列表中添加或者更新事件
 
 		//file_system_inotify_list_operation
 		bool is_exists_inotifyed_file(const string& file_path); //判断一个文件是否处于监听（只监控目录）
@@ -65,6 +68,7 @@ namespace opensync
 
 		//file_system_inotify_fifo 设置监控函数 多线程启动，CPU亲和度配置和线程优先级
 		void inotify_thread_s(const int& thread_num); //设置CPU亲和度配置和线程优先级
+		const int get_inotify_thread_id(const int& thread_num); //获取线程执行的CPU号
 
 	public:
 		//file_system_inotify

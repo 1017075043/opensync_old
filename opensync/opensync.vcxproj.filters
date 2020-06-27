@@ -28,17 +28,23 @@
     <Filter Include="public\string_operation">
       <UniqueIdentifier>{61af3a32-b5eb-46f0-9fc9-b2108f5441ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="system\file_system_monitor">
+    <Filter Include="system\file_system_fanotify">
+      <UniqueIdentifier>{1cac5364-a217-418d-b63e-3381e9e07113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\file_system_inotify">
       <UniqueIdentifier>{94578c9c-aec2-49b5-9406-321ffa520069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\system_action">
+      <UniqueIdentifier>{6f517495-137b-4d5e-bc22-565f7e7752e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="system\file_system_listen">
+      <UniqueIdentifier>{14c60815-a134-4f26-ae06-69e7351bb574}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="log4cpp_instance.cpp">
       <Filter>public\log4cpp_instance</Filter>
-    </ClCompile>
-    <ClCompile Include="user_group_info.cpp">
-      <Filter>system\user_group_info</Filter>
     </ClCompile>
     <ClCompile Include="exception.cpp">
       <Filter>public\exception</Filter>
@@ -73,6 +79,21 @@
     <ClCompile Include="file_info_databases_transfrom.cpp">
       <Filter>system\file_info_databases</Filter>
     </ClCompile>
+    <ClCompile Include="file_system_inotify_list_operation.cpp">
+      <Filter>system\file_system_inotify</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_inotify_fifo.cpp">
+      <Filter>system\file_system_inotify</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_inotify.cpp">
+      <Filter>system\file_system_inotify</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_fanotify.cpp">
+      <Filter>system\file_system_fanotify</Filter>
+    </ClCompile>
+    <ClCompile Include="user_group_info.cpp">
+      <Filter>system\user_group_info</Filter>
+    </ClCompile>
     <ClCompile Include="user_group_info_get.cpp">
       <Filter>system\user_group_info</Filter>
     </ClCompile>
@@ -82,14 +103,17 @@
     <ClCompile Include="user_group_info_show.cpp">
       <Filter>system\user_group_info</Filter>
     </ClCompile>
-    <ClCompile Include="file_system_inotify.cpp">
-      <Filter>system\file_system_monitor</Filter>
+    <ClCompile Include="system_action.cpp">
+      <Filter>system\system_action</Filter>
     </ClCompile>
-    <ClCompile Include="file_system_inotify_list_operation.cpp">
-      <Filter>system\file_system_monitor</Filter>
+    <ClCompile Include="file_system_listen.cpp">
+      <Filter>system\file_system_listen</Filter>
     </ClCompile>
-    <ClCompile Include="file_system_inotify_fifo.cpp">
-      <Filter>system\file_system_monitor</Filter>
+    <ClCompile Include="file_system_listen_fifo.cpp">
+      <Filter>system\file_system_listen</Filter>
+    </ClCompile>
+    <ClCompile Include="file_system_listen_list_operation.cpp">
+      <Filter>system\file_system_listen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,7 +145,16 @@
       <Filter>public\string_operation</Filter>
     </ClInclude>
     <ClInclude Include="file_system_inotify.h">
-      <Filter>system\file_system_monitor</Filter>
+      <Filter>system\file_system_inotify</Filter>
+    </ClInclude>
+    <ClInclude Include="file_system_fanotify.h">
+      <Filter>system\file_system_fanotify</Filter>
+    </ClInclude>
+    <ClInclude Include="system_action.h">
+      <Filter>system\system_action</Filter>
+    </ClInclude>
+    <ClInclude Include="file_system_listen.h">
+      <Filter>system\file_system_listen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

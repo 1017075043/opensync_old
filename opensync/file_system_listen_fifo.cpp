@@ -1,7 +1,7 @@
-﻿#include "file_system_inotify.h"
+﻿#include "file_system_listen.h"
 namespace opensync
 {
-	void file_system_inotify::inotify_thread_s(const int& thread_num)
+	void file_system_listen::inotify_thread_set(const int& thread_num)  //获取线程执行的CPU号
 	{
 		try
 		{
@@ -56,7 +56,7 @@ namespace opensync
 			out->logs << OUTERROR << *boost::get_error_info<err_str>(e);
 		}
 	}
-	const int file_system_inotify::get_inotify_thread_id(const int& thread_num) //获取线程执行的CPU号
+	const int file_system_listen::get_inotify_thread_id(const int& thread_num) //获取线程执行的CPU号
 	{
 		try
 		{
@@ -83,22 +83,26 @@ namespace opensync
 		}
 		return -1;
 	}
-	void file_system_inotify::start_watch() //创建和CPU相同的线程数，
+	void file_system_listen::start_watch() //创建和CPU相同的线程数，
 	{
+		boost::thread fanotify_thread = boost::thread(boost::bind(&file_system_listen::open_fanotify, this)); //创建fanotify线程
+
 		int cpu_num = sysconf(_SC_NPROCESSORS_CONF);  //获取CPU核数
 		boost::thread inotify_thread[cpu_num];
 		out->logs << OUTINFO << "system has " << cpu_num << " processor(s).";
 		for (int i = 0; i < cpu_num; i++)
 		{
-			inotify_thread[i] = boost::thread(boost::bind(&file_system_inotify::inotify_thread_s, this, i));
+			out->logs << OUTINFO << "i=" << i << ", 开始尝试创建线程.";
+			inotify_thread[i] = boost::thread(boost::bind(&file_system_listen::inotify_thread_set, this, i)); //创建inotify线程
 		}
+		fanotify_thread.join();
 		for (int i = 0; i < cpu_num; ++i)
 		{
 			inotify_thread[i].join();
 		}
 		return;
 	}
-	void file_system_inotify::shop_watch() //停止监听
+	void file_system_listen::shop_watch() //停止监听
 	{
 		run_flag = false;
 	}

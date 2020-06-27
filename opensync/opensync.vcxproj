@@ -82,9 +82,13 @@
     <ClCompile Include="file_info_databases.cpp" />
     <ClCompile Include="file_info_databases_is_exist.cpp" />
     <ClCompile Include="file_info_databases_transfrom.cpp" />
+    <ClCompile Include="file_system_fanotify.cpp" />
     <ClCompile Include="file_system_inotify.cpp" />
     <ClCompile Include="file_system_inotify_fifo.cpp" />
     <ClCompile Include="file_system_inotify_list_operation.cpp" />
+    <ClCompile Include="file_system_listen.cpp" />
+    <ClCompile Include="file_system_listen_fifo.cpp" />
+    <ClCompile Include="file_system_listen_list_operation.cpp" />
     <ClCompile Include="file_system_operation.cpp" />
     <ClCompile Include="file_system_operation_get.cpp" />
     <ClCompile Include="file_system_operation_set.cpp" />
@@ -94,6 +98,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="log4cpp_instance.cpp" />
     <ClCompile Include="string_operation.cpp" />
+    <ClCompile Include="system_action.cpp" />
     <ClCompile Include="user_group_info.cpp" />
     <ClCompile Include="user_group_info_get.cpp" />
     <ClCompile Include="user_group_info_is_exist.cpp" />
@@ -105,25 +110,31 @@
   <ItemGroup>
     <ClInclude Include="exception.h" />
     <ClInclude Include="file_info_databases.h" />
+    <ClInclude Include="file_system_fanotify.h" />
     <ClInclude Include="file_system_inotify.h" />
+    <ClInclude Include="file_system_listen.h" />
     <ClInclude Include="file_system_operation.h" />
     <ClInclude Include="instance_garbo.h" />
     <ClInclude Include="opensync_public_define.h" />
     <ClInclude Include="log4cpp_instance.h" />
     <ClInclude Include="opensync_public_include_file.h" />
     <ClInclude Include="string_operation.h" />
+    <ClInclude Include="system_action.h" />
     <ClInclude Include="user_group_info.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <SharedLibrarySearchPath>%(Link.SharedLibrarySearchPath);/usr/local/lib/</SharedLibrarySearchPath>
       <LibraryDependencies>boost_date_time;boost_filesystem;boost_thread;log4cpp;crypto;pthread</LibraryDependencies>
-      <Version>true</Version>
+      <Version>false</Version>
     </Link>
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Verbose>false</Verbose>
       <ShowIncludes>false</ShowIncludes>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <LinkTimeOptimization>false</LinkTimeOptimization>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

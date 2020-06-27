@@ -25,7 +25,7 @@ namespace opensync
 	}
 	void user_group_info::destory()
 	{
-		if (instance != nullptr) 
+		if (instance != nullptr)
 		{
 			delete instance;
 			instance = nullptr;
